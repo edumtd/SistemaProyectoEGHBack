@@ -14,9 +14,19 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from django.views.decorators.csrf import csrf_exempt
 from django.utils.decorators import method_decorator
 
+# Vista de prueba
+@api_view(['POST', 'GET'])
+@permission_classes([AllowAny])
+def test_view(request):
+    print("=" * 80)
+    print("TEST VIEW - PETICIÓN RECIBIDA")
+    print(f"Método: {request.method}")
+    print(f"Datos: {request.data if request.method == 'POST' else 'GET request'}")
+    print("=" * 80)
+    return Response({'message': 'Test exitoso', 'method': request.method})
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
-@csrf_exempt
 def login_view(request):
 
     print("=" * 60)

@@ -12,6 +12,7 @@ from app_movil_escolar_api.views import eventos
 
 
 urlpatterns = [
+    path('test/', auth.test_view, name='test'),  # Vista de prueba
     path('login/', auth.login_view, name='login'),
     
     path('api/administrador/registro/', users.AdminView.as_view()),
