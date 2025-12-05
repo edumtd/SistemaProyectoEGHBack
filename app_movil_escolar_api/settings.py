@@ -33,9 +33,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = [
-    'http://localhost:4200',
-]
+# Configuración CORS para desarrollo y producción
+CORS_ALLOWED_ORIGINS = os.environ.get(
+    'CORS_ALLOWED_ORIGINS', 
+    'http://localhost:4200'
+).split(',')
+
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOW_HEADERS = [
@@ -80,16 +83,17 @@ TEMPLATES = [
 WSGI_APPLICATION = 'app_movil_escolar_api.wsgi.application'
 
 # Configuración de base de datos para Railway o local
-if os.environ.get('RAILWAY_ENVIRONMENT'):
+# Railway proporciona MYSQLHOST automáticamente cuando agregas MySQL
+if os.environ.get('MYSQLHOST') or os.environ.get('MYSQL_URL'):
     # Configuración para Railway usando variables de entorno
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('MYSQL_DATABASE', 'railway'),
-            'USER': os.environ.get('MYSQL_USER', 'root'),
-            'PASSWORD': os.environ.get('MYSQL_PASSWORD', ''),
-            'HOST': os.environ.get('MYSQL_HOST', '127.0.0.1'),
-            'PORT': os.environ.get('MYSQL_PORT', '3306'),
+            'NAME': os.environ.get('MYSQLDATABASE', os.environ.get('MYSQL_DATABASE', 'railway')),
+            'USER': os.environ.get('MYSQLUSER', os.environ.get('MYSQL_USER', 'root')),
+            'PASSWORD': os.environ.get('MYSQLPASSWORD', os.environ.get('MYSQL_PASSWORD', '')),
+            'HOST': os.environ.get('MYSQLHOST', os.environ.get('MYSQL_HOST', '127.0.0.1')),
+            'PORT': os.environ.get('MYSQLPORT', os.environ.get('MYSQL_PORT', '3306')),
             'OPTIONS': {
                 'charset': 'utf8mb4',
             }
