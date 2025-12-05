@@ -36,7 +36,7 @@ MIDDLEWARE = [
 # Configuración CORS para desarrollo y producción
 CORS_ALLOWED_ORIGINS = os.environ.get(
     'CORS_ALLOWED_ORIGINS', 
-    'http://localhost:4200,https://sistemaproyectoegh10.vercel.app/'
+    'http://localhost:4200,https://sistemaproyectoegh10.vercel.app'
 ).split(',')
 
 CORS_ALLOW_CREDENTIALS = True
