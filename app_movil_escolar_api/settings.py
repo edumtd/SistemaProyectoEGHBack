@@ -36,7 +36,7 @@ MIDDLEWARE = [
 # Configuración CORS para desarrollo y producción
 CORS_ALLOWED_ORIGINS = os.environ.get(
     'CORS_ALLOWED_ORIGINS', 
-    'http://localhost:4200'
+    'http://localhost:4200,https://sistemaproyectoegh10.vercel.app/'
 ).split(',')
 
 CORS_ALLOW_CREDENTIALS = True
@@ -86,14 +86,19 @@ WSGI_APPLICATION = 'app_movil_escolar_api.wsgi.application'
 # Railway proporciona MYSQLHOST automáticamente cuando agregas MySQL
 if os.environ.get('MYSQLHOST') or os.environ.get('MYSQL_URL'):
     # Configuración para Railway usando variables de entorno
+    db_password = os.environ.get('MYSQLPASSWORD') or os.environ.get('MYSQL_PASSWORD', '')
+    
+    # Debug: imprimir si la contraseña está presente (sin mostrar el valor)
+    print(f"DEBUG: Password present: {bool(db_password)}")
+    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
-            'NAME': os.environ.get('MYSQLDATABASE', os.environ.get('MYSQL_DATABASE', 'railway')),
-            'USER': os.environ.get('MYSQLUSER', os.environ.get('MYSQL_USER', 'root')),
-            'PASSWORD': os.environ.get('MYSQLPASSWORD', os.environ.get('MYSQL_PASSWORD', '')),
-            'HOST': os.environ.get('MYSQLHOST', os.environ.get('MYSQL_HOST', '127.0.0.1')),
-            'PORT': os.environ.get('MYSQLPORT', os.environ.get('MYSQL_PORT', '3306')),
+            'NAME': os.environ.get('MYSQLDATABASE') or os.environ.get('MYSQL_DATABASE', 'railway'),
+            'USER': os.environ.get('MYSQLUSER') or os.environ.get('MYSQL_USER', 'root'),
+            'PASSWORD': db_password,
+            'HOST': os.environ.get('MYSQLHOST') or os.environ.get('MYSQL_HOST', '127.0.0.1'),
+            'PORT': os.environ.get('MYSQLPORT') or os.environ.get('MYSQL_PORT', '3306'),
             'OPTIONS': {
                 'charset': 'utf8mb4',
             }
