@@ -1,0 +1,14 @@
+[phases.setup]
+nixPkgs = ['python313', 'default-mysql-client']
+
+[phases.install]
+cmds = [
+    'python -m venv /app/.venv',
+    '. /app/.venv/bin/activate && pip install -r requirements.txt'
+]
+
+[phases.build]
+cmds = []
+
+[start]
+cmd = 'python manage.py migrate && gunicorn --bind 0.0.0.0:$PORT app_movil_escolar_api.wsgi:application'
