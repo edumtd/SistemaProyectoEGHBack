@@ -6,7 +6,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY', '-_&+lsebec(whhw!%n@ww&1j=4-^j_if9x8$q
 
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
+# ALLOWED_HOSTS configuración para Railway
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+# Agregar soporte para Railway
+if os.environ.get('RAILWAY_ENVIRONMENT_NAME'):
+    ALLOWED_HOSTS = ['*']  # Permitir todos en Railway temporalmente para debug
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
