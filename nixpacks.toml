@@ -1,5 +1,5 @@
 [phases.setup]
-nixPkgs = ['python313', 'default-mysql-client']
+nixPkgs = ['python313']
 
 [phases.install]
 cmds = [
