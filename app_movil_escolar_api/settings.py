@@ -53,6 +53,22 @@ CORS_ALLOW_HEADERS = [
     'x-requested-with',
 ]
 
+# Configuración adicional de CORS
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+# Configuración de CSRF para permitir peticiones de Vercel
+CSRF_TRUSTED_ORIGINS = [
+    'https://sistemaproyectoegh10.vercel.app',
+    'http://localhost:4200',
+]
+
 ROOT_URLCONF = 'app_movil_escolar_api.urls'
 
 
